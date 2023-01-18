@@ -5,7 +5,7 @@
 
     <section class="post_form">
       <form class="form" action="/" method="POST" enctype="multipart/form-data">
-        <img src="{% static 'img/icon.png' %}" height="50px" width="50px">
+        <a href="/"><img src="{% static 'img/icon.png' %}" height="50px" width="50px"></a>
         <h1>HOME</h1>
         {% csrf_token %}
         <div class="deflogo"><img src="{% static 'img/user.png' %}"/></div>
@@ -21,7 +21,7 @@
         <ul>
           {% for post in posts %}
           <li>
-          
+            <div class="flex">
             <img class="menu_icon js-menu-icon" src="{% static 'img/menu.png' %}"/>
             <div class="menu">
                 <a href="/delete/{{ post.id }}/">Delete</a> <br>
@@ -34,20 +34,23 @@
               <div class="name">{{ post.name }} </div>
               <div class="datetime">{{ post.created_at}}</div>
               <p>{{ post.body}}</p>
-
+            </div>
+            </div>
+            <div >
               {% if post.image.url %}
-              <img src="{{post.image.url}}" width="300px">
+              <img id="post-img" src="{{post.image.url}}" width="300px">
               {% endif %}
-
+            <div class="img-like">
               <form action="{% url 'like_post' post.pk %}" method='POST'>
                 {% csrf_token %}
             <button type="submit", name="post_id", value="{{ post.id }}">
               &#10084;
             </button> 
             {{post.likes}}
+          </div>
         </form> 
+        </div>
               
-            </div>
           </li>
           {% endfor %}
         </ul>
